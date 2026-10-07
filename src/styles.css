@@ -3078,3 +3078,66 @@ h3 {
   .service-export:is(:hover,:focus-visible) .export-art > svg, .service-growth:is(:hover,:focus-visible) .growth-bars span { transform: none; }
   .service-operations:is(:hover,:focus-visible) .operations-stack { transform: rotate(-8deg); }
 }
+
+/* Scroll scenes and continuous growth. Native scrolling keeps touch and keyboard in control. */
+html { scroll-behavior: smooth; scroll-padding-top: 95px; }
+.opening-scene { position: sticky; top: -100px; z-index: 0; background: var(--paper); }
+.services-section { position: relative; z-index: 2; border-radius: 32px 32px 0 0; box-shadow: 0 -20px 45px #17171408; }
+.process-scene { position: relative; z-index: 2; background: var(--paper); transition: background-color 200ms linear; }
+.process-section { padding-top: 85px; }
+.process-intro { position: sticky; top: 120px; align-self: start; }
+.impact-section, .world-section { position: relative; z-index: 2; }
+.world-section { background: var(--paper); }
+.hero-proof { gap: 18px; align-items: center; font-size: 12px; }
+.hero-proof b { display: block; font-size: clamp(23px, 2.2vw, 34px); letter-spacing: -.04em; font-variant-numeric: tabular-nums; line-height: 1.3; }
+.hero-proof i { height: 35px; }
+.impact-grid strong { font-variant-numeric: tabular-nums; }
+.growth-art .art-arrow { animation: arrow-float 4.8s ease-in-out 1s infinite; animation-play-state: paused; }
+@keyframes arrow-float { 0%,100% { transform: rotate(-9deg) translateY(0); } 50% { transform: rotate(-6deg) translateY(-12px); } }
+.orbit { animation: orbit-turn 28s linear infinite; animation-play-state: paused; }
+.orbit-two { animation-direction: reverse; animation-duration: 36s; }
+.orbit::after { content: ""; position: absolute; left: 50%; top: -3px; width: 5px; height: 5px; border-radius: 50%; background: #ff7300; }
+@keyframes orbit-turn { from { rotate: 0deg; scale: 1 .94; } to { rotate: 360deg; scale: 1 .94; } }
+.motion-active .art-arrow, .motion-active .orbit { animation-play-state: running; }
+.scroll-choreography .step { opacity: 0; transform: translate(22px, 20px); transition: opacity 600ms cubic-bezier(.22,1,.36,1), transform 600ms cubic-bezier(.22,1,.36,1); }
+.scroll-choreography .step.is-visible { opacity: 1; transform: none; }
+.service { position: relative; perspective: 1200px; isolation: isolate; }
+.service-front { backface-visibility: hidden; transform: rotateY(0deg); transition: transform 700ms cubic-bezier(.22,1,.36,1); }
+.service-back { position: absolute; inset: 0; padding: 30px; display: flex; flex-direction: column; justify-content: center; background: inherit; backface-visibility: hidden; transform: rotateY(-180deg); transition: transform 700ms cubic-bezier(.22,1,.36,1); }
+.service-back img { width: 85px; margin-bottom: 30px; }
+.service-back h3 { font-size: 30px; line-height: 1.15; letter-spacing: -.04em; margin-bottom: 20px; }
+.service-back p { font-size: 13px; line-height: 1.8; }
+.service-back > span { margin-top: auto; padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 600; }
+.service-back small { display: none; font-size: 10px; margin-top: 10px; }
+.service:focus-visible .service-front, .service.is-flipped .service-front { transform: rotateY(180deg); }
+.service:focus-visible .service-back, .service.is-flipped .service-back { transform: rotateY(0deg); }
+@media (hover: hover) and (pointer: fine) {
+  .service:hover .service-front { transform: rotateY(180deg); }
+  .service:hover .service-back { transform: rotateY(0deg); }
+}
+@media (hover: none) { .service-back small { display: block; } }
+@media (max-width: 760px) {
+  .opening-scene { top: -360px; }
+  .hero-proof { gap: 18px; font-size: 11px; }
+  .hero-proof b { font-size: 26px; }
+  .process-intro { position: static; }
+  .process-section { padding-top: 55px; }
+  .services-section { border-radius: 24px 24px 0 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .opening-scene { position: relative; top: auto; }
+  .process-intro { position: static; }
+  .scroll-choreography .step { opacity: 1; transform: none; }
+  .service-front, .service-back { transition: opacity 120ms ease-out !important; transform: none !important; }
+  .service-back { opacity: 0; }
+  .service:is(:hover,:focus-visible,.is-flipped) .service-front { opacity: 0; }
+  .service:is(:hover,:focus-visible,.is-flipped) .service-back { opacity: 1; }
+}
+.contact-section { position: relative; z-index: 2; }
+.service-front { grid-column: 1 / -1; }
+@media (max-width: 760px) {
+  .service-front { display: grid; grid-template-columns: inherit; column-gap: inherit; }
+}
+.steps { overflow: clip; }
+.service { overflow: clip; }

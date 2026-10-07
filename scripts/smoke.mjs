@@ -82,6 +82,15 @@ try {
   const beforeScroll = await art.evaluate(el => el.style.getPropertyValue("--motion-y"));
   await motionPage.evaluate(() => scrollBy(0, 100));
   await motionPage.waitForFunction(before => document.querySelector(".growth-art").style.getPropertyValue("--motion-y") !== before, beforeScroll);
+  await motionPage.locator("#our-impact").scrollIntoViewIfNeeded();
+  await motionPage.waitForFunction(() => document.querySelector(".impact-grid strong [data-counting]")?.dataset.counting === "done");
+  assert.equal(await motionPage.locator(".impact-grid strong").first().innerText(), "5,000+");
+  assert.equal(await motionPage.locator(".impact-grid strong").nth(3).innerText(), "4");
+  await motionPage.waitForFunction(() => document.querySelectorAll(".step.is-visible").length === 6);
+  assert.notEqual(await motionPage.locator(".process-scene").evaluate(el => getComputedStyle(el).backgroundColor), "rgb(250, 249, 246)");
+  await motionPage.locator(".service").first().hover();
+  await motionPage.waitForTimeout(750);
+  assert.equal(await motionPage.locator(".service-back").first().evaluate(el => getComputedStyle(el).transform), "matrix(1, 0, 0, 1, 0, 0)");
   await motionPage.emulateMedia({ reducedMotion: "reduce" });
   await motionPage.waitForFunction(() => getComputedStyle(document.querySelector(".art-arrow")).translate === "none");
   assert.equal(await motionPage.locator(".art-arrow img").evaluate(el => getComputedStyle(el).animationName), "none");
@@ -95,6 +104,13 @@ try {
     hasTouch: true,
     isMobile: true,
   });
+  await page.goto(base);
+  const exportCard = page.locator(".service-export");
+  await exportCard.tap();
+  assert.equal(await exportCard.evaluate(el => el.classList.contains("is-flipped")), true);
+  assert.equal(new URL(page.url()).pathname, "/");
+  await exportCard.tap();
+  await page.waitForURL("**/alibaba");
   await page.goto(base);
   await page.getByRole("button", { name: "Open navigation" }).tap();
   await page

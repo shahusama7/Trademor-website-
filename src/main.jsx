@@ -172,7 +172,7 @@ function GrowthArtwork({ alibaba = false }) {
       art.style.setProperty("--motion-x", `${pointerX * 24}px`);
       art.style.setProperty("--motion-y", `${progress * 42 + pointerY * 18}px`);
     };
-    const schedule = () => { if (!frame && !motion.matches && visible) frame = requestAnimationFrame(draw); };
+    const schedule = () => { art.classList.toggle("motion-active", visible && !document.hidden && !motion.matches); if (!frame && !motion.matches && visible) frame = requestAnimationFrame(draw); };
     const move = (event) => {
       if (!finePointer.matches) return;
       const rect = art.getBoundingClientRect();
@@ -266,9 +266,69 @@ function Partners() {
   );
 }
 
+function CountUp({ value, suffix = "", className = "" }) {
+  const ref = useRef(null);
+  const [number, setNumber] = useState(value);
+  useEffect(() => {
+    const media = matchMedia("(prefers-reduced-motion: reduce)");
+    let frame = 0;
+    let started = false;
+    const finish = () => { if (media.matches) { cancelAnimationFrame(frame); setNumber(value); } };
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting || started) return;
+      started = true;
+      observer.disconnect();
+      if (media.matches) return;
+      ref.current.dataset.counting = "true";
+      const start = performance.now();
+      setNumber(0);
+      const tick = (now) => {
+        const progress = Math.min(1, (now - start) / 1400);
+        setNumber(Math.round(value * (1 - Math.pow(1 - progress, 3))));
+        if (progress < 1) frame = requestAnimationFrame(tick);
+        else ref.current.dataset.counting = "done";
+      };
+      frame = requestAnimationFrame(tick);
+    }, { threshold: .4 });
+    observer.observe(ref.current);
+    media.addEventListener("change", finish);
+    return () => { observer.disconnect(); cancelAnimationFrame(frame); media.removeEventListener("change", finish); };
+  }, [value]);
+  return <span ref={ref} className={className} aria-label={`${value.toLocaleString("en-US")}${suffix}`}><span aria-hidden="true">{number.toLocaleString("en-US")}{suffix}</span></span>;
+}
+
+function useHomeScroll() {
+  useEffect(() => {
+    const section = document.querySelector(".process-scene");
+    const media = matchMedia("(prefers-reduced-motion: reduce)");
+    let frame = 0;
+    const rows = [...section.querySelectorAll(".step")];
+    const draw = () => {
+      frame = 0;
+      const rect = section.getBoundingClientRect();
+      const progress = Math.max(0, Math.min(1, (innerHeight - rect.top) / (innerHeight * .75)));
+      const mix = (a, b) => Math.round(a + (b - a) * progress);
+      section.style.backgroundColor = `rgb(${mix(250, 218)}, ${mix(249, 238)}, ${mix(246, 225)})`;
+      rows.forEach(row => {
+        if (media.matches || row.getBoundingClientRect().top < innerHeight * .88) row.classList.add("is-visible");
+      });
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(draw); };
+    if (!media.matches) section.classList.add("scroll-choreography");
+    const preference = () => { section.classList.toggle("scroll-choreography", !media.matches); schedule(); };
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    media.addEventListener("change", preference);
+    schedule();
+    return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); media.removeEventListener("change", preference); };
+  }, []);
+}
+
 function Home() {
+  useHomeScroll();
   return (
     <>
+      <div className="opening-scene">
       <section className="hero container">
         <div className="hero-copy">
           <h1>
@@ -285,21 +345,22 @@ function Home() {
           <Button href="#what-we-do">Explore what we do</Button>
           <div className="hero-proof">
             <span>
-              <b>5,000+</b> businesses
+              <b><CountUp value={5000} suffix="+" /></b> businesses
             </span>
             <i />
             <span>
-              <b>10+</b> years
+              <b><CountUp value={10} suffix="+" /></b> years
             </span>
             <i />
             <span>
-              <b>4</b> offices
+              <b><CountUp value={4} /></b> offices
             </span>
           </div>
         </div>
         <GrowthArtwork />
       </section>
       <Partners />
+      </div>
       <section id="what-we-do" className="services-section">
         <div className="container">
           <div className="section-heading">
@@ -316,7 +377,12 @@ function Home() {
             </p>
           </div>
           <div className="services-grid">
-            <a href="/alibaba" className="service service-export">
+            <a href="/alibaba" className="service service-export" onClick={(event) => {
+              if (matchMedia("(hover: none)").matches && !event.currentTarget.classList.contains("is-flipped")) {
+                event.preventDefault(); event.currentTarget.classList.add("is-flipped");
+              }
+            }}>
+              <div className="service-front">
               <div className="service-top">
                 <ArrowUpRight />
               </div>
@@ -339,8 +405,20 @@ function Home() {
                   Explore Alibaba.com <ArrowUpRight size={18} />
                 </span>
               </div>
+              </div>
+              <div className="service-back" aria-hidden="true">
+                <img src="/brand/arrow.svg" alt="" />
+                <h3>Your products. Everywhere.</h3><p>Reach international buyers with Alibaba.com.</p>
+                <span>Explore Alibaba.com <ArrowUpRight size={20} /></span>
+                <small>Tap again to explore</small>
+              </div>
             </a>
-            <a href="#contact" className="service service-operations">
+            <a href="#contact" className="service service-operations" onClick={(event) => {
+              if (matchMedia("(hover: none)").matches && !event.currentTarget.classList.contains("is-flipped")) {
+                event.preventDefault(); event.currentTarget.classList.add("is-flipped");
+              }
+            }}>
+              <div className="service-front">
               <div className="service-top">
                 <ArrowUpRight />
               </div>
@@ -374,8 +452,20 @@ function Home() {
                   Let’s simplify things <ArrowUpRight size={18} />
                 </span>
               </div>
+              </div>
+              <div className="service-back" aria-hidden="true">
+                <img src="/brand/arrow.svg" alt="" />
+                <h3>A clearer picture.</h3><p>Bring sales, stock and your team together with Odoo.</p>
+                <span>Let’s simplify things <ArrowUpRight size={20} /></span>
+                <small>Tap again to explore</small>
+              </div>
             </a>
-            <a href="#contact" className="service service-growth">
+            <a href="#contact" className="service service-growth" onClick={(event) => {
+              if (matchMedia("(hover: none)").matches && !event.currentTarget.classList.contains("is-flipped")) {
+                event.preventDefault(); event.currentTarget.classList.add("is-flipped");
+              }
+            }}>
+              <div className="service-front">
               <div className="service-top">
                 <ArrowUpRight />
               </div>
@@ -402,10 +492,18 @@ function Home() {
                   Find your next move <ArrowUpRight size={18} />
                 </span>
               </div>
+              </div>
+              <div className="service-back" aria-hidden="true">
+                <img src="/brand/arrow.svg" alt="" />
+                <h3>Ready for what’s next.</h3><p>Build your global presence and get paid across borders.</p>
+                <span>Find your next move <ArrowUpRight size={20} /></span>
+                <small>Tap again to explore</small>
+              </div>
             </a>
           </div>
         </div>
       </section>
+      <div className="process-scene">
       <section id="how-we-work" className="process-section container">
         <div className="process-intro">
           <h2>
@@ -436,6 +534,7 @@ function Home() {
           ))}
         </div>
       </section>
+      </div>
       <section id="our-impact" className="impact-section">
         <div className="container">
           <div className="impact-head"></div>
@@ -447,24 +546,24 @@ function Home() {
           <div className="impact-grid">
             <div>
               <strong>
-                5,000<span>+</span>
+                <CountUp value={5000} suffix="+" />
               </strong>
               <p>Businesses on their growth journey</p>
             </div>
             <div>
               <strong>
-                100<span>s</span>
+                <CountUp value={100} suffix="s" />
               </strong>
               <p>Successful storefronts</p>
             </div>
             <div>
               <strong>
-                4<span>+</span>
+                <CountUp value={4} suffix="+" />
               </strong>
               <p>Global partnerships</p>
             </div>
             <div>
-              <strong>4</strong>
+              <strong><CountUp value={4} /></strong>
               <p>Offices across Pakistan</p>
             </div>
           </div>
