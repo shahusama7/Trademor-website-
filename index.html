@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/brand/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ff7300" />
+    <meta
+      name="description"
+      content="Your partner in growth. Trademor helps Pakistani manufacturers and suppliers find buyers, sell globally, and run smarter."
+    />
+    <title>Trademor — Your Partner in Growth</title>
+  </head>
+  <body>
+    <!-- Netlify discovers this static form during deployment. React renders the visible form. -->
+    <form
+      name="trademor-enquiries"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="website"
+      hidden
+    >
+      <input type="hidden" name="form-name" value="trademor-enquiries" />
+      <input name="name" />
+      <input name="business" />
+      <input name="phone" />
+      <input name="email" />
+      <input name="goal" />
+      <input name="stage" />
+      <input name="plan" />
+      <input name="reference" />
+      <input name="website" />
+    </form>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

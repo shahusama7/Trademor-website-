@@ -1,0 +1,323 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-07T08:58:11.766418+00:00",
+  "title": "Design System: Trademor",
+  "extensions": {
+    "colorMeta": {
+      "orange": {
+        "role": "primary",
+        "displayName": "Orange",
+        "tonalRamp": [
+          "oklch(15.00% 0.1945 47.88)",
+          "oklch(26.43% 0.1945 47.88)",
+          "oklch(37.86% 0.1945 47.88)",
+          "oklch(49.29% 0.1945 47.88)",
+          "oklch(60.71% 0.1945 47.88)",
+          "oklch(72.14% 0.1945 47.88)",
+          "oklch(83.57% 0.1945 47.88)",
+          "oklch(95.00% 0.1945 47.88)"
+        ]
+      },
+      "orange-text": {
+        "role": "primary",
+        "displayName": "Orange Text",
+        "tonalRamp": [
+          "oklch(15.00% 0.1685 46.59)",
+          "oklch(26.43% 0.1685 46.59)",
+          "oklch(37.86% 0.1685 46.59)",
+          "oklch(49.29% 0.1685 46.59)",
+          "oklch(60.71% 0.1685 46.59)",
+          "oklch(72.14% 0.1685 46.59)",
+          "oklch(83.57% 0.1685 46.59)",
+          "oklch(95.00% 0.1685 46.59)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "tonalRamp": [
+          "oklch(15.00% 0.0041 91.45)",
+          "oklch(26.43% 0.0041 91.45)",
+          "oklch(37.86% 0.0041 91.45)",
+          "oklch(49.29% 0.0041 91.45)",
+          "oklch(60.71% 0.0041 91.45)",
+          "oklch(72.14% 0.0041 91.45)",
+          "oklch(83.57% 0.0041 91.45)",
+          "oklch(95.00% 0.0041 91.45)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.0058 106.91)",
+          "oklch(26.43% 0.0058 106.91)",
+          "oklch(37.86% 0.0058 106.91)",
+          "oklch(49.29% 0.0058 106.91)",
+          "oklch(60.71% 0.0058 106.91)",
+          "oklch(72.14% 0.0058 106.91)",
+          "oklch(83.57% 0.0058 106.91)",
+          "oklch(95.00% 0.0058 106.91)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line",
+        "tonalRamp": [
+          "oklch(15.00% 0.0108 106.61)",
+          "oklch(26.43% 0.0108 106.61)",
+          "oklch(37.86% 0.0108 106.61)",
+          "oklch(49.29% 0.0108 106.61)",
+          "oklch(60.71% 0.0108 106.61)",
+          "oklch(72.14% 0.0108 106.61)",
+          "oklch(83.57% 0.0108 106.61)",
+          "oklch(95.00% 0.0108 106.61)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "tonalRamp": [
+          "oklch(15.00% 0.0124 106.83)",
+          "oklch(26.43% 0.0124 106.83)",
+          "oklch(37.86% 0.0124 106.83)",
+          "oklch(49.29% 0.0124 106.83)",
+          "oklch(60.71% 0.0124 106.83)",
+          "oklch(72.14% 0.0124 106.83)",
+          "oklch(83.57% 0.0124 106.83)",
+          "oklch(95.00% 0.0124 106.83)"
+        ]
+      },
+      "export-surface": {
+        "role": "secondary",
+        "displayName": "Export Surface",
+        "tonalRamp": [
+          "oklch(15.00% 0.0167 91.56)",
+          "oklch(26.43% 0.0167 91.56)",
+          "oklch(37.86% 0.0167 91.56)",
+          "oklch(49.29% 0.0167 91.56)",
+          "oklch(60.71% 0.0167 91.56)",
+          "oklch(72.14% 0.0167 91.56)",
+          "oklch(83.57% 0.0167 91.56)",
+          "oklch(95.00% 0.0167 91.56)"
+        ]
+      },
+      "operations-surface": {
+        "role": "secondary",
+        "displayName": "Operations Surface",
+        "tonalRamp": [
+          "oklch(15.00% 0.0298 161.08)",
+          "oklch(26.43% 0.0298 161.08)",
+          "oklch(37.86% 0.0298 161.08)",
+          "oklch(49.29% 0.0298 161.08)",
+          "oklch(60.71% 0.0298 161.08)",
+          "oklch(72.14% 0.0298 161.08)",
+          "oklch(83.57% 0.0298 161.08)",
+          "oklch(95.00% 0.0298 161.08)"
+        ]
+      },
+      "growth-surface": {
+        "role": "secondary",
+        "displayName": "Growth Surface",
+        "tonalRamp": [
+          "oklch(15.00% 0.0605 76.65)",
+          "oklch(26.43% 0.0605 76.65)",
+          "oklch(37.86% 0.0605 76.65)",
+          "oklch(49.29% 0.0605 76.65)",
+          "oklch(60.71% 0.0605 76.65)",
+          "oklch(72.14% 0.0605 76.65)",
+          "oklch(83.57% 0.0605 76.65)",
+          "oklch(95.00% 0.0605 76.65)"
+        ]
+      },
+      "quiet-text": {
+        "role": "neutral",
+        "displayName": "Quiet Text",
+        "tonalRamp": [
+          "oklch(15.00% 0.0171 107.01)",
+          "oklch(26.43% 0.0171 107.01)",
+          "oklch(37.86% 0.0171 107.01)",
+          "oklch(49.29% 0.0171 107.01)",
+          "oklch(60.71% 0.0171 107.01)",
+          "oklch(72.14% 0.0171 107.01)",
+          "oklch(83.57% 0.0171 107.01)",
+          "oklch(95.00% 0.0171 107.01)"
+        ]
+      },
+      "focus": {
+        "role": "functional",
+        "displayName": "Focus",
+        "tonalRamp": [
+          "oklch(15.00% 0.2095 261.36)",
+          "oklch(26.43% 0.2095 261.36)",
+          "oklch(37.86% 0.2095 261.36)",
+          "oklch(49.29% 0.2095 261.36)",
+          "oklch(60.71% 0.2095 261.36)",
+          "oklch(72.14% 0.2095 261.36)",
+          "oklch(83.57% 0.2095 261.36)",
+          "oklch(95.00% 0.2095 261.36)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headings."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings with contextual overrides."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Tertiary headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Supporting explanatory copy."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Primary button labels."
+      }
+    },
+    "shadows": [
+      {
+        "name": "illustration-tag",
+        "value": "0 4px 12px #11111107",
+        "purpose": "Floating illustration labels."
+      },
+      {
+        "name": "operations-illustration",
+        "value": "5px 8px 16px #214f3512",
+        "purpose": "Layered operations drawing."
+      },
+      {
+        "name": "mobile-navigation",
+        "value": "0 15px 25px #00000010",
+        "purpose": "Open mobile menu."
+      }
+    ],
+    "motion": [
+      {
+        "name": "control-transition",
+        "value": "0.2s ease",
+        "purpose": "Button colors and arrow movement."
+      },
+      {
+        "name": "service-lift",
+        "value": "0.25s ease",
+        "purpose": "Service card hover movement."
+      },
+      {
+        "name": "choice-transition",
+        "value": "0.15s ease",
+        "purpose": "Enquiry choice background and border."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide",
+        "value": "1500px"
+      },
+      {
+        "name": "compact-desktop",
+        "value": "1100px"
+      },
+      {
+        "name": "tablet",
+        "value": "850px"
+      },
+      {
+        "name": "mobile",
+        "value": "640px"
+      },
+      {
+        "name": "small-mobile",
+        "value": "370px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Canonical ink action with directional arrow.",
+      "html": "<button class=\"ds-button\"><span>Let\u2019s find your next move</span><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" aria-hidden=\"true\"><path d=\"M7 17 17 7M7 7h10v10\"/></svg></button>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:space-between;gap:32px;background:var(--ink,#171714);color:white;min-height:54px;border:1px solid var(--ink,#171714);padding:17px 22px;font-size:12px;font-weight:550;font-family:\"Sora Variable\",sans-serif;cursor:pointer;transition:background .2s,color .2s,transform .2s}.ds-button:hover:not(:disabled){background:var(--orange,#ff7300);border-color:var(--orange,#ff7300);color:var(--ink,#171714)}.ds-button svg{flex-shrink:0;transition:transform .2s}.ds-button:hover:not(:disabled) svg{transform:translate(2px,-2px)}.ds-button:active:not(:disabled){transform:translateY(1px)}.ds-button:disabled{opacity:.45;cursor:not-allowed}.ds-button:focus-visible{outline:3px solid #276ef1;outline-offset:5px}@media(prefers-reduced-motion:reduce){.ds-button,.ds-button svg,.ds-service{transition:none!important}}"
+    },
+    {
+      "name": "Orange Button",
+      "kind": "button",
+      "refersTo": "button-orange",
+      "description": "Accent action for dark sections.",
+      "html": "<button class=\"ds-button ds-orange\"><span>Let\u2019s talk exports</span><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" aria-hidden=\"true\"><path d=\"M7 17 17 7M7 7h10v10\"/></svg></button>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:space-between;gap:32px;background:var(--ink,#171714);color:white;min-height:54px;border:1px solid var(--ink,#171714);padding:17px 22px;font-size:12px;font-weight:550;font-family:\"Sora Variable\",sans-serif;cursor:pointer;transition:background .2s,color .2s,transform .2s}.ds-button:hover:not(:disabled){background:var(--orange,#ff7300);border-color:var(--orange,#ff7300);color:var(--ink,#171714)}.ds-button svg{flex-shrink:0;transition:transform .2s}.ds-button:hover:not(:disabled) svg{transform:translate(2px,-2px)}.ds-button:active:not(:disabled){transform:translateY(1px)}.ds-button:disabled{opacity:.45;cursor:not-allowed}.ds-button:focus-visible{outline:3px solid #276ef1;outline-offset:5px}.ds-orange{background:var(--orange,#ff7300);color:var(--ink,#171714);border-color:var(--orange,#ff7300)}.ds-orange:hover:not(:disabled){background:#fff6cc;border-color:#fff6cc}@media(prefers-reduced-motion:reduce){.ds-button,.ds-button svg,.ds-service{transition:none!important}}"
+    },
+    {
+      "name": "Business Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Square, underlined enquiry input with visible label.",
+      "html": "<label class=\"ds-field\">Email address<input type=\"email\" placeholder=\"you@business.com\" autocomplete=\"email\" required/></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:9px;color:var(--ink,#171714);font-size:12px;font-family:\"Sora Variable\",sans-serif;}.ds-field input{font-family:\"Sora Variable\",sans-serif;font-size:15px;color:var(--ink,#171714);border:0;border-bottom:1px solid #bfbfb3;background:transparent;border-radius:0;min-height:37px;padding:8px 0;width:100%;caret-color:#b34e00}.ds-field input::placeholder{color:#69695e}.ds-field input:focus-visible{outline:3px solid #276ef1;outline-offset:5px}@media(max-width:640px){.ds-field input{font-size:16px}}@media(prefers-reduced-motion:reduce){.ds-button,.ds-button svg,.ds-service{transition:none!important}}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "Quiet horizontal page navigation with current-page state.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Main\"><a href=\"#services\">What we do</a><a href=\"#alibaba\" aria-current=\"page\">Alibaba.com</a><a href=\"#impact\">Our impact</a></nav>",
+      "css": ".ds-nav{display:flex;gap:34px;align-items:center;background:var(--paper,#faf9f6);color:var(--ink,#171714);font-family:\"Sora Variable\",sans-serif;}.ds-nav a{font-size:13px;font-weight:500;padding:12px 0;color:inherit;text-decoration:none}.ds-nav a:hover,.ds-nav a[aria-current=\"page\"]{color:#b34e00}.ds-nav a:focus-visible{outline:3px solid #276ef1;outline-offset:5px}@media(max-width:640px){.ds-nav{flex-direction:column;align-items:stretch;gap:0;padding:16px 22px 28px;border-bottom:1px solid var(--line,#dfdfd7);box-shadow:0 15px 25px #00000010}.ds-nav a{font-size:15px;padding:17px 0;border-bottom:1px solid var(--line,#dfdfd7)}}@media(prefers-reduced-motion:reduce){.ds-button,.ds-button svg,.ds-service{transition:none!important}}"
+    },
+    {
+      "name": "Export Service Card",
+      "kind": "card",
+      "refersTo": "card-export",
+      "description": "Tonal service content with a ruled action and restrained hover lift.",
+      "html": "<article class=\"ds-service\"><h3>Sell globally.</h3><p>Reach buyers and enter new markets.</p><a href=\"#contact\"><span>Let\u2019s talk exports</span><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" aria-hidden=\"true\"><path d=\"M7 17 17 7M7 7h10v10\"/></svg></a></article>",
+      "css": ".ds-service{background:#e2ded2;color:var(--ink,#171714);padding:23px 25px 28px;font-family:\"Sora Variable\",sans-serif;transition:transform .25s}.ds-service:hover{transform:translateY(-5px)}.ds-service h3{margin:0 0 14px;font-size:25px;font-weight:600;letter-spacing:-.04em;line-height:1.25}.ds-service p{margin:0;max-width:280px;font-size:13px;line-height:1.75;color:#414a3b}.ds-service a{display:flex;align-items:center;justify-content:space-between;padding-top:21px;margin-top:23px;border-top:1px solid #17171430;color:inherit;font-size:12px;font-weight:550;text-decoration:none}.ds-service a:focus-visible{outline:3px solid #276ef1;outline-offset:5px}@media(max-width:640px){.ds-service h3{font-size:29px}.ds-service p{font-size:14px;max-width:100%}.ds-service a{font-size:13px;min-height:44px}}@media(prefers-reduced-motion:reduce){.ds-button,.ds-button svg,.ds-service{transition:none!important}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Growth Partner",
+    "overview": "The Growth Partner expresses Trademor\u2019s supplied identity through warm paper, confident ink typography and the original orange growth arrow. Sora supplies one clear voice for Pakistani manufacturers, suppliers and business owners moving toward global trade.\n\nThe finished system is spacious and largely flat: split compositions, open editorial sections and quiet rules organize content. Service illustrations carry restrained tactile detail; dark proof sections and the orange enquiry section establish contrast without adding a second brand identity.",
+    "keyCharacteristics": [
+      "Original orange growth arrow and supplied logos.",
+      "Sora throughout, with tightly tracked balanced headings.",
+      "Warm paper, square surfaces and thin dividing rules.",
+      "Tonal service surfaces and clear, staged enquiry controls."
+    ],
+    "rules": [
+      {
+        "name": "The Brand Orange Rule",
+        "body": "Use original orange for identity assets and large accent surfaces; use the darker orange-text derivative for emphasized text on warm paper.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Typeface Rule",
+        "body": "Use Sora for display, body and controls; vary scale and weight rather than introducing another voice.",
+        "section": "typography"
+      },
+      {
+        "name": "The Quiet Depth Rule",
+        "body": "Keep content surfaces flat. Reserve diffuse shadows for illustration layers and the open mobile navigation.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do preserve the supplied logos and growth arrow.",
+      "Do pair orange surfaces with ink text and paper text with ink surfaces.",
+      "Do keep process numbers and form progress tied to actual sequence.",
+      "Do maintain visible keyboard focus and reduced-motion behavior.",
+      "Do retain comfortable mobile control heights and the single-column mobile form."
+    ],
+    "donts": [
+      "Don\u2019t recolor identity assets with the darker text derivative.",
+      "Don\u2019t reintroduce decorative heading preludes or unrelated numbering.",
+      "Don\u2019t use hard offset shadows as a reusable surface style.",
+      "Don\u2019t turn decorative illustration labels into a body-text size standard."
+    ]
+  }
+}
