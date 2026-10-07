@@ -326,6 +326,22 @@ function useHomeScroll() {
 
 function Home() {
   useHomeScroll();
+  const [activeCard, setActiveCard] = useState(null);
+  const globeRef = useRef(null);
+  useEffect(() => {
+    const globe = globeRef.current;
+    const media = matchMedia("(prefers-reduced-motion: reduce)");
+    let visible = false;
+    const update = () => globe.classList.toggle("world-motion", visible && !document.hidden && !media.matches);
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; update(); });
+    observer.observe(globe);
+    document.addEventListener("visibilitychange", update);
+    media.addEventListener("change", update);
+    return () => { observer.disconnect(); document.removeEventListener("visibilitychange", update); media.removeEventListener("change", update); };
+  }, []);
+  const revealCard = (index) => {
+    setActiveCard(index);
+  };
   return (
     <>
       <div className="opening-scene">
@@ -376,10 +392,13 @@ function Home() {
               help you take the next step.
             </p>
           </div>
-          <div className="services-grid">
-            <a href="/alibaba" className="service service-export" onClick={(event) => {
-              if (matchMedia("(hover: none)").matches && !event.currentTarget.classList.contains("is-flipped")) {
-                event.preventDefault(); event.currentTarget.classList.add("is-flipped");
+          <div className="deck-controls" aria-label="Explore our services">
+            {["Alibaba.com", "Odoo", "Global growth"].map((name, index) => <button key={name} type="button" aria-pressed={activeCard === index} aria-controls={`service-card-${index}`} onClick={() => revealCard(index)} onPointerEnter={() => { if (matchMedia("(hover: hover)").matches) revealCard(index); }}>{name}<ArrowUpRight size={16} /></button>)}
+          </div>
+          <div className="services-grid" onMouseLeave={() => { if (matchMedia("(hover: hover)").matches) setActiveCard(null); }}>
+            <a href="/alibaba" id="service-card-0" className={`service service-export ${activeCard === 0 ? "is-active" : ""}`} onPointerEnter={() => { if (matchMedia("(hover: hover)").matches) revealCard(0); }} onFocus={(event) => { if (event.currentTarget.matches(":focus-visible")) revealCard(0); }} onClick={(event) => {
+              if (matchMedia("(hover: none)").matches && activeCard !== 0) {
+                event.preventDefault(); revealCard(0);
               }
             }}>
               <div className="service-front">
@@ -413,9 +432,9 @@ function Home() {
                 <small>Tap again to explore</small>
               </div>
             </a>
-            <a href="#contact" className="service service-operations" onClick={(event) => {
-              if (matchMedia("(hover: none)").matches && !event.currentTarget.classList.contains("is-flipped")) {
-                event.preventDefault(); event.currentTarget.classList.add("is-flipped");
+            <a href="#contact" id="service-card-1" className={`service service-operations ${activeCard === 1 ? "is-active" : ""}`} onPointerEnter={() => { if (matchMedia("(hover: hover)").matches) revealCard(1); }} onFocus={(event) => { if (event.currentTarget.matches(":focus-visible")) revealCard(1); }} onClick={(event) => {
+              if (matchMedia("(hover: none)").matches && activeCard !== 1) {
+                event.preventDefault(); revealCard(1);
               }
             }}>
               <div className="service-front">
@@ -460,9 +479,9 @@ function Home() {
                 <small>Tap again to explore</small>
               </div>
             </a>
-            <a href="#contact" className="service service-growth" onClick={(event) => {
-              if (matchMedia("(hover: none)").matches && !event.currentTarget.classList.contains("is-flipped")) {
-                event.preventDefault(); event.currentTarget.classList.add("is-flipped");
+            <a href="#contact" id="service-card-2" className={`service service-growth ${activeCard === 2 ? "is-active" : ""}`} onPointerEnter={() => { if (matchMedia("(hover: hover)").matches) revealCard(2); }} onFocus={(event) => { if (event.currentTarget.matches(":focus-visible")) revealCard(2); }} onClick={(event) => {
+              if (matchMedia("(hover: none)").matches && activeCard !== 2) {
+                event.preventDefault(); revealCard(2);
               }
             }}>
               <div className="service-front">
@@ -577,17 +596,21 @@ function Home() {
         </div>
       </section>
       <section className="world-section container">
-        <div className="world-visual">
+        <div className="world-visual" ref={globeRef}>
           <svg viewBox="0 0 520 390" fill="none" aria-hidden="true">
             <g stroke="#b8b9ab" strokeWidth="1">
               <ellipse cx="260" cy="205" rx="190" ry="155" />
-              <ellipse cx="260" cy="205" rx="112" ry="155" />
-              <ellipse cx="260" cy="205" rx="40" ry="155" />
+              <g className="globe-meridians">
+                <ellipse cx="260" cy="205" rx="155" ry="155" />
+                <ellipse cx="260" cy="205" rx="72" ry="155" />
+                <path d="M260 50v310" />
+              </g>
               <ellipse cx="260" cy="205" rx="190" ry="60" />
               <ellipse cx="260" cy="205" rx="190" ry="112" />
               <path d="M70 205h380M260 50v310" />
             </g>
             <path
+              className="globe-routes"
               d="M280 213Q365 90 443 116M280 213Q168 80 90 109M280 213Q183 305 111 281"
               stroke="#ff7300"
               strokeWidth="2"

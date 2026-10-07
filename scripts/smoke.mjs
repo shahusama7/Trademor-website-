@@ -91,7 +91,17 @@ try {
   await motionPage.locator(".service").first().hover();
   await motionPage.waitForTimeout(750);
   assert.equal(await motionPage.locator(".service-back").first().evaluate(el => getComputedStyle(el).transform), "matrix(1, 0, 0, 1, 0, 0)");
+  for (const name of ["Odoo", "Global growth", "Alibaba.com"]) {
+    await motionPage.locator(".deck-controls").getByRole("button", { name, exact: true }).click();
+    const selected = motionPage.locator(".service.is-active");
+    assert.equal(await selected.count(), 1);
+    assert.equal(await selected.evaluate(el => getComputedStyle(el).zIndex), "10");
+  }
+  await motionPage.locator(".world-visual").scrollIntoViewIfNeeded();
+  await motionPage.waitForFunction(() => document.querySelector(".world-visual").classList.contains("world-motion"));
+  assert.equal(await motionPage.locator(".globe-meridians").evaluate(el => getComputedStyle(el).animationPlayState), "running");
   await motionPage.emulateMedia({ reducedMotion: "reduce" });
+  await motionPage.waitForFunction(() => getComputedStyle(document.querySelector(".globe-meridians")).animationName === "none");
   await motionPage.waitForFunction(() => getComputedStyle(document.querySelector(".art-arrow")).translate === "none");
   assert.equal(await motionPage.locator(".art-arrow img").evaluate(el => getComputedStyle(el).animationName), "none");
   await motionPage.getByRole("link", { name: "Let’s talk" }).first().click();
@@ -106,8 +116,8 @@ try {
   });
   await page.goto(base);
   const exportCard = page.locator(".service-export");
-  await exportCard.tap();
-  assert.equal(await exportCard.evaluate(el => el.classList.contains("is-flipped")), true);
+  await exportCard.tap({ position: { x: 25, y: 25 } });
+  assert.equal(await exportCard.evaluate(el => el.classList.contains("is-active")), true);
   assert.equal(new URL(page.url()).pathname, "/");
   await exportCard.tap();
   await page.waitForURL("**/alibaba");

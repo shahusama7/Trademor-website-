@@ -3141,3 +3141,46 @@ html { scroll-behavior: smooth; scroll-padding-top: 95px; }
 }
 .steps { overflow: clip; }
 .service { overflow: clip; }
+/* An overlapping service deck: each exposed edge and selector remains reachable. */
+.deck-controls { display: flex; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
+.deck-controls button { display: inline-flex; align-items: center; gap: 15px; border: 1px solid #cbc9bf; background: transparent; padding: 12px 18px; font: inherit; font-size: 12px; cursor: pointer; transition: background-color 180ms ease-out; }
+.deck-controls button:is(:hover,[aria-pressed="true"]) { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.services-grid { display: block; position: relative; min-height: 560px; }
+.services-grid .service { position: absolute; top: 12px; left: 0; width: 44%; min-height: 500px; border: 1px solid #17171416; box-shadow: 0 15px 35px #17171412; transform: rotate(-4deg); transform-origin: bottom center; transition: transform 650ms cubic-bezier(.22,1,.36,1); }
+.services-grid .service:nth-child(2) { left: 28%; top: 25px; transform: rotate(1deg); z-index: 2; }
+.services-grid .service:nth-child(3) { left: 56%; top: 38px; transform: rotate(4deg); z-index: 3; }
+.services-grid .service:is(.is-active,:focus-visible,.is-flipped) { z-index: 10; transform: translateY(-12px) rotate(0deg); }
+.service.is-active .service-front { transform: rotateY(180deg); }
+.service.is-active .service-back { transform: rotateY(0deg); }
+.globe-meridians { transform-box: fill-box; transform-origin: center; animation: globe-revolution 12s linear infinite; animation-play-state: paused; }
+@keyframes globe-revolution { from { transform: scaleX(1); } 50% { transform: scaleX(-1); } to { transform: scaleX(1); } }
+.globe-routes { animation: globe-flow 3s linear infinite; animation-play-state: paused; }
+@keyframes globe-flow { to { stroke-dashoffset: -44; } }
+.world-motion .globe-meridians, .world-motion .globe-routes { animation-play-state: running; }
+@media (max-width: 760px) {
+  .services-grid { min-height: 710px; margin-inline: 8px; }
+  .services-grid .service { width: 100%; min-height: 470px; top: 0; left: 0; transform: rotate(-3deg); }
+  .services-grid .service:nth-child(2) { left: 0; top: 95px; transform: rotate(1deg); }
+  .services-grid .service:nth-child(3) { left: 0; top: 190px; transform: rotate(3deg); }
+  .services-grid .service:is(.is-active,:focus-visible,.is-flipped) { transform: translateY(-8px) rotate(0deg); }
+  .deck-controls { gap: 7px; }
+  .deck-controls button { padding: 11px 12px; font-size: 11px; gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .services-grid .service, .services-grid .service:nth-child(2), .services-grid .service:nth-child(3),
+  .services-grid .service:is(.is-active,:focus-visible,.is-flipped) { transform: none; }
+  .service.is-active .service-front { opacity: 0; }
+  .service.is-active .service-back { opacity: 1; }
+}
+@media (max-width: 760px) { .services-grid { margin-inline: 18px; } }
+@media (min-width: 761px) and (max-width: 1000px) {
+  .services-grid { min-height: 730px; margin-inline: 24px; }
+  .services-grid .service { width: 100%; left: 0; top: 0; min-height: 500px; transform: rotate(-3deg); }
+  .services-grid .service:nth-child(2) { left: 0; top: 95px; transform: rotate(1deg); }
+  .services-grid .service:nth-child(3) { left: 0; top: 190px; transform: rotate(3deg); }
+  .services-grid .service:is(.is-active,:focus-visible,.is-flipped) { transform: translateY(-8px) rotate(0deg); }
+  .service-front { display: grid; grid-template-columns: 1fr; }
+  .service-art { grid-column: 1; grid-row: 2; width: 220px; justify-self: center; }
+  .service-bottom { grid-column: 1; grid-row: 3; }
+}
+@media (prefers-reduced-motion: reduce) { .services-grid > .service { transform: none !important; } }
