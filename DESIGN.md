@@ -208,3 +208,7 @@ Three thin progress segments and the actual `01 / 03` counter communicate curren
 - **Don’t** reintroduce decorative heading preludes or unrelated numbering.
 - **Don’t** use hard offset shadows as a reusable surface style.
 - **Don’t** turn decorative illustration labels into a body-text size standard.
+
+## Motion
+
+The original growth arrow arrives once over 720ms. Bounded pointer and scroll parallax gives the arrow and market labels different depths; it stops outside the viewport and respects reduced-motion preferences, including changes made while the page is open. Buttons provide a 400ms click wave, selected checks settle in 220ms, and form questions enter in 240ms. Supported browsers use cross-document view transitions with a shared logo. Reduced motion removes spatial movement while retaining short color and opacity feedback. No animation dependency or scroll-reveal system is added.

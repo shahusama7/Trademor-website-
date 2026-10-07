@@ -74,6 +74,22 @@ try {
       await page.close();
     }
   }
+  const motionPage = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+  await motionPage.goto(base);
+  const art = motionPage.locator(".growth-art");
+  await art.hover({ position: { x: 40, y: 40 } });
+  await motionPage.waitForFunction(() => parseFloat(document.querySelector(".growth-art").style.getPropertyValue("--motion-x")) < 0);
+  const beforeScroll = await art.evaluate(el => el.style.getPropertyValue("--motion-y"));
+  await motionPage.evaluate(() => scrollBy(0, 100));
+  await motionPage.waitForFunction(before => document.querySelector(".growth-art").style.getPropertyValue("--motion-y") !== before, beforeScroll);
+  await motionPage.emulateMedia({ reducedMotion: "reduce" });
+  await motionPage.waitForFunction(() => getComputedStyle(document.querySelector(".art-arrow")).translate === "none");
+  assert.equal(await motionPage.locator(".art-arrow img").evaluate(el => getComputedStyle(el).animationName), "none");
+  await motionPage.getByRole("link", { name: "Let’s talk" }).first().click();
+  assert.equal(await motionPage.locator(".click-wave").count(), 1);
+  assert.equal(await motionPage.locator(".click-wave").evaluate(el => getComputedStyle(el).animationName), "reduced-click");
+  await motionPage.close();
+  console.log("PASS: pointer and scroll parallax; reduced-motion reset; click feedback.");
   const page = await browser.newPage({
     viewport: { width: 390, height: 844 },
     hasTouch: true,

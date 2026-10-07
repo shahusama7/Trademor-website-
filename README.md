@@ -1,5 +1,7 @@
 # Trademor website
 
+Live website: https://trademor-website.netlify.app
+
 Responsive Home (`/`) and Alibaba.com (`/alibaba`) pages built from the supplied website copy and Trademor brand guide. React, Vite, Express, self-hosted Sora, and original Illustrator logos exported as SVG.
 
 ## Run

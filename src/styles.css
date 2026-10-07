@@ -2434,7 +2434,8 @@ h1 {
   *::before,
   *::after {
     animation: none !important;
-    transition: none !important;
+    transition-property: color, background-color, border-color, opacity !important;
+    transition-duration: 120ms !important;
   }
 }
 
@@ -2987,4 +2988,43 @@ h3 {
 .service-top,
 .form-topline {
   justify-content: flex-end;
+}
+
+/* Motion follows the brand's upward growth, with one focal arrival. */
+@view-transition { navigation: auto; }
+.logo-link { view-transition-name: trademor-logo; }
+::view-transition-old(root) { animation: page-out 160ms ease-out both; }
+::view-transition-new(root) { animation: page-in 300ms cubic-bezier(.16,1,.3,1) both; }
+@keyframes page-out { to { opacity: 0; } }
+@keyframes page-in { from { opacity: .6; transform: translateY(8px); } }
+.button { position: relative; isolation: isolate; overflow: hidden; }
+.button > span, .button > svg { position: relative; z-index: 1; }
+.click-wave { position: absolute; inset: 0; background: currentColor; opacity: 0; pointer-events: none; animation: click-wave 400ms ease-out; }
+@keyframes click-wave { from { opacity: .18; clip-path: circle(0% at 50% 50%); } to { opacity: 0; clip-path: circle(100% at 50% 50%); } }
+.button, .goal-options button, .readiness-checks > button, .service {
+  transition: transform 180ms cubic-bezier(.16,1,.3,1), background-color 180ms ease-out, color 180ms ease-out, border-color 180ms ease-out;
+}
+.button:active:not(:disabled), .goal-options button:active, .readiness-checks > button:active { transform: scale(.98); }
+.button > svg { transition: transform 220ms cubic-bezier(.16,1,.3,1); }
+.button:is(:hover,:focus-visible) > svg { transform: translate(2px,-2px); }
+.growth-art .art-arrow { translate: var(--motion-x, 0px) var(--motion-y, 0px); transition: translate 200ms ease-out; }
+.growth-art .tag-one { translate: calc(var(--motion-x, 0px) * -.6) calc(var(--motion-y, 0px) * -.5); transition: translate 240ms ease-out; }
+.growth-art .tag-two { translate: calc(var(--motion-x, 0px) * .4) calc(var(--motion-y, 0px) * .35); transition: translate 240ms ease-out; }
+.art-arrow img { animation: growth-arrival 720ms cubic-bezier(.16,1,.3,1) both; transform-origin: bottom left; }
+@keyframes growth-arrival { from { opacity: .4; transform: translate(-16px,20px) scale(.94); } to { opacity: 1; transform: none; } }
+.form-step, .form-success { animation: step-arrival 240ms cubic-bezier(.16,1,.3,1); }
+@keyframes step-arrival { from { opacity: .6; transform: translateX(10px); } to { opacity: 1; transform: none; } }
+.form-progress span { transition: background-color 240ms ease-out; }
+.goal-options .selected .option-check svg, .success-icon svg { animation: check-arrival 220ms cubic-bezier(.16,1,.3,1); }
+@keyframes check-arrival { from { opacity: .3; transform: scale(.6); } to { opacity: 1; transform: scale(1); } }
+@media (hover: hover) and (pointer: fine) {
+  .service:hover { transform: translateY(-5px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .growth-art .art-arrow, .growth-art .art-tag { translate: none !important; }
+  .button:active:not(:disabled), .goal-options button:active, .readiness-checks > button:active,
+  .service:hover, .button:is(:hover,:focus-visible) > svg { transform: none; }
+  .click-wave { animation: reduced-click 180ms ease-out !important; }
+  @keyframes reduced-click { from { opacity: .12; } to { opacity: 0; } }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
 }

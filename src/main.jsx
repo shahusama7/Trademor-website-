@@ -64,8 +64,12 @@ const plans = [
 
 function Button({ children, href, className = "", ...props }) {
   const Tag = href ? "a" : "button";
+  const [pulse, setPulse] = useState(0);
+  const { onClick, ...rest } = props;
   return (
-    <Tag href={href} className={`button ${className}`} {...props}>
+    <Tag href={href} className={`button ${className}`} {...rest}
+      onClick={(event) => { setPulse((value) => value + 1); onClick?.(event); }}>
+      {pulse > 0 && <i key={pulse} className="click-wave" aria-hidden="true" />}
       <span>{children}</span>
       <ArrowUpRight size={20} strokeWidth={1.8} />
     </Tag>
@@ -141,8 +145,59 @@ function Header({ alibaba }) {
 }
 
 function GrowthArtwork({ alibaba = false }) {
+  const artRef = useRef(null);
+  useEffect(() => {
+    const art = artRef.current;
+    const motion = matchMedia("(prefers-reduced-motion: reduce)");
+    const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
+    let frame = 0;
+    let visible = false;
+    let pointerX = 0;
+    let pointerY = 0;
+    const reset = () => {
+      art.style.setProperty("--motion-x", "0px");
+      art.style.setProperty("--motion-y", "0px");
+    };
+    const draw = () => {
+      frame = 0;
+      if (motion.matches || !visible || document.hidden) return;
+      const rect = art.getBoundingClientRect();
+      const progress = Math.max(-1, Math.min(1, (innerHeight / 2 - rect.top - rect.height / 2) / innerHeight));
+      art.style.setProperty("--motion-x", `${pointerX * 10}px`);
+      art.style.setProperty("--motion-y", `${progress * 28 + pointerY * 8}px`);
+    };
+    const schedule = () => { if (!frame && !motion.matches && visible) frame = requestAnimationFrame(draw); };
+    const move = (event) => {
+      if (!finePointer.matches) return;
+      const rect = art.getBoundingClientRect();
+      pointerX = (event.clientX - rect.left) / rect.width - 0.5;
+      pointerY = (event.clientY - rect.top) / rect.height - 0.5;
+      schedule();
+    };
+    const leave = () => { pointerX = 0; pointerY = 0; schedule(); };
+    const preference = () => { reset(); schedule(); };
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; schedule(); });
+    observer.observe(art);
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    document.addEventListener("visibilitychange", schedule);
+    art.addEventListener("pointermove", move);
+    art.addEventListener("pointerleave", leave);
+    motion.addEventListener("change", preference);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      document.removeEventListener("visibilitychange", schedule);
+      art.removeEventListener("pointermove", move);
+      art.removeEventListener("pointerleave", leave);
+      motion.removeEventListener("change", preference);
+    };
+  }, []);
   return (
     <div
+      ref={artRef}
       className={`growth-art ${alibaba ? "global-art" : ""}`}
       aria-label={
         alibaba
@@ -816,7 +871,7 @@ function Contact() {
                 ))}
               </div>
               {step === 0 && (
-                <div className="form-step">
+                <div className="form-step" key="goal">
                   <h3>
                     What do you want
                     <br />
@@ -853,7 +908,7 @@ function Contact() {
                 </div>
               )}
               {step === 1 && (
-                <div className="form-step">
+                <div className="form-step" key="stage">
                   <h3>
                     Where are
                     <br />
@@ -892,7 +947,7 @@ function Contact() {
                 </div>
               )}
               {step === 2 && (
-                <form className="form-step" onSubmit={submit}>
+                <form className="form-step" key="details" onSubmit={submit}>
                   <h3>
                     Tell us about
                     <br />
