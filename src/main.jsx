@@ -68,7 +68,13 @@ function Button({ children, href, className = "", ...props }) {
   const { onClick, ...rest } = props;
   return (
     <Tag href={href} className={`button ${className}`} {...rest}
-      onClick={(event) => { setPulse((value) => value + 1); onClick?.(event); }}>
+      onClick={(event) => {
+        const rect = event.currentTarget.getBoundingClientRect();
+        event.currentTarget.style.setProperty("--click-x", `${event.detail ? event.clientX - rect.left : rect.width / 2}px`);
+        event.currentTarget.style.setProperty("--click-y", `${event.detail ? event.clientY - rect.top : rect.height / 2}px`);
+        setPulse((value) => value + 1);
+        onClick?.(event);
+      }}>
       {pulse > 0 && <i key={pulse} className="click-wave" aria-hidden="true" />}
       <span>{children}</span>
       <ArrowUpRight size={20} strokeWidth={1.8} />
@@ -163,8 +169,8 @@ function GrowthArtwork({ alibaba = false }) {
       if (motion.matches || !visible || document.hidden) return;
       const rect = art.getBoundingClientRect();
       const progress = Math.max(-1, Math.min(1, (innerHeight / 2 - rect.top - rect.height / 2) / innerHeight));
-      art.style.setProperty("--motion-x", `${pointerX * 10}px`);
-      art.style.setProperty("--motion-y", `${progress * 28 + pointerY * 8}px`);
+      art.style.setProperty("--motion-x", `${pointerX * 24}px`);
+      art.style.setProperty("--motion-y", `${progress * 42 + pointerY * 18}px`);
     };
     const schedule = () => { if (!frame && !motion.matches && visible) frame = requestAnimationFrame(draw); };
     const move = (event) => {
@@ -266,11 +272,11 @@ function Home() {
       <section className="hero container">
         <div className="hero-copy">
           <h1>
-            Sell more.
+            <span className="hero-line">Sell more.</span>
             <br />
-            Run smarter.
+            <span className="hero-line">Run smarter.</span>
             <br />
-            <span className="orange">Grow stronger.</span>
+            <span className="hero-line orange">Grow stronger.</span>
           </h1>
           <p className="hero-description">
             We help manufacturers, suppliers and business owners find buyers,
@@ -525,11 +531,11 @@ function Alibaba() {
       <section className="hero alibaba-hero container">
         <div className="hero-copy">
           <h1>
-            Your next
+            <span className="hero-line">Your next</span>
             <br />
-            big order.
+            <span className="hero-line">big order.</span>
             <br />
-            <span className="orange">From anywhere.</span>
+            <span className="hero-line orange">From anywhere.</span>
           </h1>
           <p className="hero-description">
             Alibaba.com connects manufacturers and suppliers with buyers around

@@ -3000,7 +3000,7 @@ h3 {
 .button { position: relative; isolation: isolate; overflow: hidden; }
 .button > span, .button > svg { position: relative; z-index: 1; }
 .click-wave { position: absolute; inset: 0; background: currentColor; opacity: 0; pointer-events: none; animation: click-wave 400ms ease-out; }
-@keyframes click-wave { from { opacity: .18; clip-path: circle(0% at 50% 50%); } to { opacity: 0; clip-path: circle(100% at 50% 50%); } }
+@keyframes click-wave { from { opacity: .18; clip-path: circle(0% at var(--click-x, 50%) var(--click-y, 50%)); } to { opacity: 0; clip-path: circle(120% at var(--click-x, 50%) var(--click-y, 50%)); } }
 .button, .goal-options button, .readiness-checks > button, .service {
   transition: transform 180ms cubic-bezier(.16,1,.3,1), background-color 180ms ease-out, color 180ms ease-out, border-color 180ms ease-out;
 }
@@ -3027,4 +3027,54 @@ h3 {
   .click-wave { animation: reduced-click 180ms ease-out !important; }
   @keyframes reduced-click { from { opacity: .12; } to { opacity: 0; } }
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
+
+/* Choreographed growth: typography leads, the arrow traces upward, markets follow. */
+.hero-line { display: inline-block; animation: headline-arrival 650ms cubic-bezier(.22,1,.36,1) backwards; }
+.hero-line:nth-of-type(2) { animation-delay: 70ms; }
+.hero-line:nth-of-type(3) { animation-delay: 140ms; }
+@keyframes headline-arrival { from { opacity: .2; transform: translateY(22px); clip-path: inset(0 0 100% 0); } to { opacity: 1; transform: none; clip-path: inset(-10% -5% -10% -5%); } }
+.art-arrow img { animation: arrow-trace 900ms cubic-bezier(.22,1,.36,1) 100ms backwards; }
+@keyframes arrow-trace {
+  from { clip-path: polygon(-5% 105%, -5% 105%, -5% 105%); transform: translate(-12px,12px) scale(.96); }
+  65% { clip-path: polygon(-5% -5%, -5% 105%, 105% 105%); }
+  to { clip-path: polygon(-5% -115%, -5% 105%, 215% 105%); transform: none; }
+}
+.art-tag { animation: market-arrival 500ms cubic-bezier(.22,1,.36,1) backwards; }
+.tag-one { animation-delay: 420ms; }
+.tag-two { animation-delay: 520ms; }
+@keyframes market-arrival { from { opacity: 0; scale: .9; } to { opacity: 1; scale: 1; } }
+.growth-art .art-brand { translate: calc(var(--motion-x, 0px) * -.2) calc(var(--motion-y, 0px) * -.15); transition: translate 300ms ease-out; }
+.service-art svg, .operations-stack, .growth-service-art img, .growth-bars span, .destination, .service-top svg, .service-link svg {
+  transition: transform 500ms cubic-bezier(.22,1,.36,1), translate 500ms cubic-bezier(.22,1,.36,1), background-color 250ms ease-out;
+}
+.growth-bars span { transform-origin: bottom; }
+.growth-bars span:nth-child(2) { transition-delay: 40ms; }
+.growth-bars span:nth-child(3) { transition-delay: 80ms; }
+.growth-bars span:nth-child(4) { transition-delay: 120ms; }
+.service:is(:hover,:focus-visible) .service-top svg, .service:is(:hover,:focus-visible) .service-link svg { translate: 3px -3px; }
+.service-export:is(:hover,:focus-visible) .export-art > svg { transform: rotate(-12deg); }
+.service-export:is(:hover,:focus-visible) .destination-one { translate: -4px 3px; }
+.service-export:is(:hover,:focus-visible) .destination-two { translate: 4px -5px; }
+.service-operations:is(:hover,:focus-visible) .operations-stack { transform: rotate(0deg) translateY(-5px); }
+.service-growth:is(:hover,:focus-visible) .growth-bars span { transform: scaleY(1.13); background-color: #edb76f; }
+.service-growth:is(:hover,:focus-visible) .growth-service-art img { translate: 7px -7px; }
+.goal-options button .option-number { transition: translate 200ms ease-out; }
+.goal-options button.selected .option-number { translate: 3px 0; }
+.goal-options button.selected { animation: selection-settle 220ms ease-out; }
+@keyframes selection-settle { 0% { transform: scale(.985); } 100% { transform: none; } }
+.success-icon svg polyline { stroke-dasharray: 32; stroke-dashoffset: 0; animation: success-draw 450ms ease-out; }
+@keyframes success-draw { from { stroke-dashoffset: 32; } to { stroke-dashoffset: 0; } }
+.comparison { transform-origin: top; animation: comparison-open 320ms cubic-bezier(.22,1,.36,1); }
+@keyframes comparison-open { from { opacity: .3; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+@media (max-width: 760px) { .nav.is-open { animation: menu-open 240ms cubic-bezier(.22,1,.36,1); } }
+@keyframes menu-open { from { opacity: .4; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .growth-art .art-brand { translate: none; }
+  .service:is(:hover,:focus-visible) .service-top svg, .service:is(:hover,:focus-visible) .service-link svg,
+  .service-export:is(:hover,:focus-visible) .destination,
+  .service-growth:is(:hover,:focus-visible) .growth-service-art img,
+  .goal-options button.selected .option-number { translate: none; }
+  .service-export:is(:hover,:focus-visible) .export-art > svg, .service-growth:is(:hover,:focus-visible) .growth-bars span { transform: none; }
+  .service-operations:is(:hover,:focus-visible) .operations-stack { transform: rotate(-8deg); }
 }
